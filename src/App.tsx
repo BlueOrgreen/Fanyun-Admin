@@ -1,30 +1,40 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
+import { Lang, useLanguage, langs } from '@/context/Language';
+import { Button } from 'antd';
+import { Theme, ThemeConfig } from '@/reducer/Theme';
+import MasterLayout from '@/layout/master';
 
 function App() {
-    const [count, setCount] = useState(0);
+    const { lang, setLang } = useLanguage();
+    console.log(lang, useLanguage());
 
     return (
-        <div className="App">
-            <div>
-                <a href="https://vitejs.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo" />
-                </a>
-                <a href="https://reactjs.org" target="_blank">
-                    <img src={reactLogo} className="logo react" alt="React logo" />
-                </a>
-            </div>
-            <h1>Vite + React</h1>
-            <div className="card">
-                <button onClick={() => setCount((pre) => pre + 1)}>count is {count}</button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-        </div>
+        <Lang>
+            <Theme>
+                <MasterLayout>
+                    <div className="tw-bg-blue-500">App</div>
+                    <Button
+                        className="tw-bg-blue-500"
+                        onClick={() => {
+                            console.log(langs[1]);
+                            setLang(langs[1]);
+                        }}
+                    >
+                        英文
+                    </Button>
+                    <Button
+                        className="tw-font-standard"
+                        onClick={() => {
+                            console.log(langs[0]);
+                            setLang(langs[0]);
+                        }}
+                    >
+                        中文
+                    </Button>
+                    <ThemeConfig />
+                </MasterLayout>
+            </Theme>
+        </Lang>
     );
 }
 
